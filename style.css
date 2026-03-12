@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap');
+
+:root {
+    --nude: #FDFBF7;
+    --gold: #D4AF37;
+    --dark: #1A1A1A;
+    --white: #FFFFFF;
+    --serif: 'Playfair Display', serif;
+    --sans: 'Montserrat', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--sans); background-color: var(--nude); color: var(--dark); line-height: 1.6; overflow-x: hidden; padding-bottom: 60px; }
+
+/* --- HEADER --- */
+header {
+    position: fixed; top: 0; width: 100%; padding: 25px 8%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(10px);
+    z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo { font-family: var(--serif); font-size: 1.6rem; letter-spacing: 4px; font-weight: 700; }
+.logo span { color: var(--gold); }
+
+nav ul { display: flex; gap: 30px; list-style: none; }
+nav ul a { text-decoration: none; color: #888; font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s; }
+nav ul a.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
+
+.header-right { display: flex; align-items: center; gap: 20px; }
+.cart-icon { position: relative; color: var(--dark); font-size: 1.1rem; text-decoration: none; }
+#cart-count {
+    position: absolute; top: -10px; right: -12px;
+    background: var(--gold); color: white; font-size: 0.6rem;
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* --- BARRE DE RECHERCHE (Ajoutée à ton style) --- */
+.search-container {
+    max-width: 400px; margin: 30px auto; position: relative;
+}
+.search-container input {
+    width: 100%; padding: 12px 45px 12px 20px; border-radius: 50px; 
+    border: 1px solid #ddd; background: white; outline: none;
+}
+.search-container i {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold);
+}
+
+/* --- HERO --- */
+.hero {
+    height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('hero-bg.jpeg') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.hero-content h1 { font-family: var(--serif); font-size: clamp(3rem, 10vw, 5.5rem); color: var(--white); margin: 20px 0; }
+.hero h1 span { color: var(--gold); font-style: italic; }
+.tagline { font-size: 0.75rem; letter-spacing: 5px; color: var(--white); font-weight: 400; }
+
+/* --- BOUTIQUE --- */
+.shop-header { padding: 160px 8% 40px; text-align: center; }
+.filter-group { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+.pill { padding: 8px 25px; border-radius: 50px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.7rem; transition: 0.3s; }
+.pill.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px 8%; }
+.product-card { background: white; padding: 20px; text-align: center; transition: 0.4s; border: 1px solid transparent; }
+.product-card:hover { transform: translateY(-10px); border-color: #eee; }
+.product-card img { width: 100%; height: 380px; object-fit: cover; margin-bottom: 20px; }
+.product-card h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 5px; }
+.add-to-cart-btn { background: var(--dark); color: white; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; margin-top: 15px; }
+.add-to-cart-btn:hover { background: var(--gold); }
+
+/* --- À PROPOS --- */
+.about-section { padding: 180px 8% 100px; }
+.about-container { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
+.about-img { flex: 1; min-width: 300px; }
+.about-img img { width: 100%; box-shadow: 25px 25px 0px var(--gold); }
+.about-text { flex: 1; min-width: 300px; }
+.about-text h2 { font-family: var(--serif); font-size: 3rem; margin: 20px 0; }
+
+/* --- PANIER --- */
+.cart-page-container { padding: 160px 8% 100px; display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
+.cart-item { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; }
+.cart-item img { width: 90px; height: 110px; object-fit: cover; }
+.summary-card { background: white; padding: 40px; border: 1px solid #eee; position: sticky; top: 140px; }
+.btn-order { width: 100%; padding: 20px; background: var(--dark); color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }

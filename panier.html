@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Mon Panier | LMK PARFUMERIE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">LMK PARFUMERIE <i class="fas fa-spray-can" style="color: var(--gold);"></i></div>
+        <nav><ul><li><a href="boutique.html">RETOURNER À LA BOUTIQUE</a></li></ul></nav>
+    </header>
+
+    <div class="cart-page-container">
+        <div class="cart-items-section">
+            <h2 style="font-family: var(--serif); margin-bottom: 30px;">Votre Panier</h2>
+            <div id="cartList"></div> 
+        </div>
+
+        <div class="summary-card">
+            <h3 style="font-family: var(--serif); margin-bottom: 20px;">Résumé</h3>
+            <div class="summary-row"><span>Sous-total</span><b id="sub">0 $</b></div>
+            <div class="summary-row"><span>Livraison</span><span style="color:green; font-weight:600;">Offerte</span></div>
+            <div class="summary-row total-row"><span>TOTAL</span><b id="total" style="color:var(--gold);">0 $</b></div>
+            
+            <button class="btn-order" onclick="window.location.href='paiement.html'" style="margin-top: 20px;">
+                VALIDER MA SÉLECTION
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

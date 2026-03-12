@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>La Collection | Laura Kwete</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">LMK PARFUMERIE <i class="fas fa-spray-can" style="color: var(--gold);"></i></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">ACCUEIL</a></li>
+                <li><a href="boutique.html" class="active">BOUTIQUE</a></li>
+                <li><a href="apropos.html">À PROPOS</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <a href="panier.html" class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="shop-header">
+        <span class="tagline" style="color: var(--gold); text-align: center; display: block; letter-spacing: 5px;">SÉLECTION EXCLUSIVE</span>
+        <h1 style="text-align: center; font-family: var(--serif); font-size: 3rem; margin-top: 10px;">Nos <span>Fragrances</span></h1>
+        
+        <div class="search-container" style="max-width: 400px; margin: 30px auto; position: relative;">
+            <input type="text" id="searchInput" onkeyup="app.filter()" placeholder="Rechercher un parfum..." 
+                   style="width: 100%; padding: 12px 45px 12px 20px; border-radius: 50px; border: 1px solid #ddd; background: #fff; outline: none; font-family: var(--sans); font-size: 0.85rem;">
+            <i class="fas fa-search" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold);"></i>
+        </div>
+
+        <div class="filter-group">
+            <button class="pill active" onclick="app.filterCat('Tous', this)">Tous</button>
+            <button class="pill" onclick="app.filterCat('Floral', this)">Floral</button>
+            <button class="pill" onclick="app.filterCat('Boisé', this)">Boisé</button>
+            <button class="pill" onclick="app.filterCat('Oriental', this)">Oriental</button>
+            <button class="pill" onclick="app.filterCat('Frais', this)">Frais</button>
+        </div>
+    </section>
+
+    <main class="product-grid" id="productGrid"></main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
