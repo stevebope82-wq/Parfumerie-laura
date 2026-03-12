@@ -1,139 +1,875 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap');
 
+
+
+
+
+
+
 :root {
+
+
+
     --nude: #FDFBF7;
+
+
+
     --gold: #D4AF37;
+
+
+
     --dark: #1A1A1A;
+
+
+
     --white: #FFFFFF;
+
+
+
     --serif: 'Playfair Display', serif;
+
+
+
     --sans: 'Montserrat', sans-serif;
+
+
+
 }
+
+
+
+
+
+
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+
 body { font-family: var(--sans); background-color: var(--nude); color: var(--dark); line-height: 1.6; overflow-x: hidden; padding-bottom: 60px; }
 
+
+
+
+
+
+
 /* --- HEADER --- */
+
+
+
 header {
+
+
+
     position: fixed; top: 0; width: 100%; padding: 25px 8%;
+
+
+
     display: flex; justify-content: space-between; align-items: center;
+
+
+
     background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(10px);
+
+
+
     z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+
+
+
 }
+
+
+
+
+
+
 
 .logo { font-family: var(--serif); font-size: 1.6rem; letter-spacing: 4px; font-weight: 700; }
+
+
+
 .logo span { color: var(--gold); }
 
+
+
+
+
+
+
 nav ul { display: flex; gap: 30px; list-style: none; }
+
+
+
 nav ul a { text-decoration: none; color: #888; font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s; }
+
+
+
 nav ul a.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
 
+
+
+
+
+
+
 .header-right { display: flex; align-items: center; gap: 20px; }
+
+
+
 .cart-icon { position: relative; color: var(--dark); font-size: 1.1rem; text-decoration: none; }
+
+
+
 #cart-count {
+
+
+
     position: absolute; top: -10px; right: -12px;
+
+
+
     background: var(--gold); color: white; font-size: 0.6rem;
+
+
+
     width: 18px; height: 18px; border-radius: 50%;
+
+
+
     display: flex; align-items: center; justify-content: center;
+
+
+
 }
+
+
+
+
+
+
 
 /* --- BARRE DE RECHERCHE (Ajoutée à ton style) --- */
+
+
+
 .search-container {
+
+
+
     max-width: 400px; margin: 30px auto; position: relative;
+
+
+
 }
+
+
+
 .search-container input {
-    width: 100%; padding: 12px 45px 12px 20px; border-radius: 50px; 
+
+
+
+    width: 100%; padding: 12px 45px 12px 20px; border-radius: 50px;
+
+
+
     border: 1px solid #ddd; background: white; outline: none;
+
+
+
 }
+
+
+
 .search-container i {
+
+
+
     position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold);
+
+
+
 }
+
+
+
+
+
+
 
 /* --- HERO --- */
+
+
+
 .hero {
+
+
+
     height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('hero-bg.jpeg') center/cover no-repeat;
+
+
+
     display: flex; align-items: center; justify-content: center; text-align: center;
+
+
+
 }
+
+
+
 .hero-content h1 { font-family: var(--serif); font-size: clamp(3rem, 10vw, 5.5rem); color: var(--white); margin: 20px 0; }
+
+
+
 .hero h1 span { color: var(--gold); font-style: italic; }
+
+
+
 .tagline { font-size: 0.75rem; letter-spacing: 5px; color: var(--white); font-weight: 400; }
 
+
+
+
+
+
+
 /* --- BOUTIQUE --- */
+
+
+
 .shop-header { padding: 160px 8% 40px; text-align: center; }
+
+
+
 .filter-group { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+
+
+
 .pill { padding: 8px 25px; border-radius: 50px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.7rem; transition: 0.3s; }
+
+
+
 .pill.active { background: var(--dark); color: white; border-color: var(--dark); }
 
+
+
+
+
+
+
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px 8%; }
+
+
+
 .product-card { background: white; padding: 20px; text-align: center; transition: 0.4s; border: 1px solid transparent; }
+
+
+
 .product-card:hover { transform: translateY(-10px); border-color: #eee; }
+
+
+
 .product-card img { width: 100%; height: 380px; object-fit: cover; margin-bottom: 20px; }
+
+
+
 .product-card h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 5px; }
+
+
+
 .add-to-cart-btn { background: var(--dark); color: white; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; margin-top: 15px; }
+
+
+
 .add-to-cart-btn:hover { background: var(--gold); }
 
+
+
+
+
+
+
 /* --- À PROPOS --- */
+
+
+
 .about-section { padding: 180px 8% 100px; }
+
+
+
 .about-container { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
+
+
+
 .about-img { flex: 1; min-width: 300px; }
+
+
+
 .about-img img { width: 100%; box-shadow: 25px 25px 0px var(--gold); }
+
+
+
 .about-text { flex: 1; min-width: 300px; }
+
+
+
 .about-text h2 { font-family: var(--serif); font-size: 3rem; margin: 20px 0; }
 
+
+
+
+
+
+
 /* --- PANIER --- */
+
+
+
 .cart-page-container { padding: 160px 8% 100px; display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
+
+
+
 .cart-item { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; }
+
+
+
 .cart-item img { width: 90px; height: 110px; object-fit: cover; }
+
+
+
 .summary-card { background: white; padding: 40px; border: 1px solid #eee; position: sticky; top: 140px; }
+
+
+
 .btn-order { width: 100%; padding: 20px; background: var(--dark); color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+
+
+
 /* --- ADAPTATION MOBILE (Responsive) --- */
 
+
+
+
+
+
+
 /* 1. La grille de produits passe de 3 ou 4 colonnes à 2 (ou 1) sur téléphone */
+
+
+
 .product-grid {
+
+
+
     display: grid !important;
+
+
+
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+
+
+
     gap: 15px !important;
+
+
+
     padding: 10px !important;
+
+
+
 }
+
+
+
+
+
+
 
 /* 2. On empêche les conteneurs de déborder */
+
+
+
 body, html {
+
+
+
     overflow-x: hidden; /* Empêche le défilement horizontal gênant */
+
+
+
     width: 100%;
+
+
+
 }
+
+
+
+
+
+
 
 .cart-page-container {
+
+
+
     display: flex;
+
+
+
     flex-direction: column; /* Empile le panier et le résumé sur mobile */
+
+
+
     width: 100% !important;
+
+
+
     padding: 10px !important;
+
+
+
     margin: 0 !important;
+
+
+
     box-sizing: border-box;
+
+
+
 }
+
+
+
+
+
+
 
 /* 3. Ajustement du Header (Logo et Nav) */
+
+
+
 header {
+
+
+
     flex-direction: column; /* Le logo au dessus, la nav en dessous sur mobile */
+
+
+
     text-align: center;
+
+
+
     padding: 10px !important;
+
+
+
 }
+
+
+
+
+
+
 
 .nav-links {
+
+
+
     padding: 0;
+
+
+
     gap: 10px;
+
+
+
     font-size: 0.8rem;
+
+
+
 }
+
+
+
+
+
+
 
 /* 4. Images responsives */
+
+
+
 img {
+
+
+
     max-width: 100%;
+
+
+
     height: auto;
+
+
+
 }
 
+
+
+
+
+
+
 /* 5. Ajustement de la Summary Card (Panier & Paiement) */
+
+
+
 .summary-card {
+
+
+
     width: 100% !important;
+
+
+
     max-width: 100% !important;
+
+
+
     margin: 20px 0 !important;
+
+
+
     float: none !important;
+
+
+
     box-sizing: border-box;
+
+
+
+}
+
+
+
+
+
+.about-hero {
+
+    position: relative;
+
+    min-height: 100vh; /* Prend toute la hauteur de l'écran */
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 80px 8%;
+
+    color: white; /* Texte en blanc pour ressortir */
+
+    background-image: url('images/laura-portrait.jpg'); /* TON IMAGE DE FOND */
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed; /* Effet de mouvement classe */
+
+}
+
+
+
+/* L'overlay qui rend l'image moins visible */
+
+.hero-overlay {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.7); /* Noir à 70% d'opacité */
+
+    z-index: 1;
+
+}
+
+
+
+.about-content {
+
+    position: relative;
+
+    z-index: 2; /* Passe au-dessus de l'overlay noir */
+
+    max-width: 800px;
+
+    text-align: center;
+
+}
+
+
+
+.hero-title {
+
+    font-family: var(--serif);
+
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* S'adapte au mobile automatiquement */
+
+    margin: 20px 0;
+
+    color: white;
+
+}
+
+
+
+.hero-title span {
+
+    color: var(--gold); /* "Signature" en doré */
+
+}
+
+
+
+.hero-text-box {
+
+    background: rgba(255, 255, 255, 0.05); /* Un léger voile blanc très léger */
+
+    backdrop-filter: blur(5px); /* Floute un peu le fond derrière le texte */
+
+    padding: 40px;
+
+    border-radius: 2px;
+
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Bordure dorée très fine */
+
+}
+
+
+
+.quote {
+
+    font-style: italic;
+
+    color: var(--gold);
+
+    font-size: 1.2rem;
+
+    margin-bottom: 30px;
+
+    display: block;
+
+}
+
+
+
+.gold-btn {
+
+    margin-top: 30px;
+
+    background: var(--gold);
+
+    color: black;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+
+.gold-btn:hover {
+
+    background: white;
+
+    transform: translateY(-3px);
+
+}
+
+
+
+.footer-bottom {
+
+    background: #000;
+
+    color: #555;
+
+    text-align: center;
+
+    padding: 20px;
+
+    font-size: 0.8rem;
+
+}
+
+
+
+/* Adaptation Mobile */
+
+@media (max-width: 768px) {
+
+    .about-hero {
+
+        padding: 40px 5%;
+
+    }
+
+    .hero-text-box {
+
+        padding: 20px;
+
+    }
+
+}
+
+
+
+
+/* --- AMÉLIORATIONS PAGE À PROPOS --- */
+
+/* 1. Animation de la section entière */
+.about-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 8%;
+    color: var(--white);
+    background-image: url('images/laura-portrait.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Effet parallaxe sur PC */
+    overflow: hidden;
+}
+
+/* Overlay plus profond pour la lisibilité */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+    z-index: 1;
+}
+
+/* Conteneur de texte avec animation */
+.about-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    text-align: center;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+/* Boîte de texte style "Luxe" */
+.hero-text-box {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px); /* Flou plus prononcé */
+    -webkit-backdrop-filter: blur(12px);
+    padding: 50px;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    margin-top: 30px;
+}
+
+/* Citation stylisée */
+.quote {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    display: block;
+}
+
+.hero-text-box p {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* Bouton Gold Amélioré */
+.gold-btn {
+    margin-top: 20px;
+    background: var(--gold);
+    color: var(--dark) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 18px 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-btn:hover {
+    background: var(--white);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- MOBILE OPTIMISATION --- */
+@media (max-width: 768px) {
+    .about-hero {
+        background-attachment: scroll; /* Désactivé sur mobile pour la performance */
+        padding: 120px 5% 60px;
+    }
+    
+    .hero-text-box {
+        padding: 30px 20px;
+        background: rgba(0, 0, 0, 0.5); /* Plus sombre sur mobile */
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .quote {
+        font-size: 1.1rem;
+    }
+}
+
+/* Footer style pour coller à la page */
+.footer-bottom {
+    background: var(--dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
 }
