@@ -84,6 +84,7 @@ const app = {
 
     addToCart: function(id) {
         const product = products.find(p => p.id === id);
+        if(!product) return;
         const existing = cart.find(item => item.id === id);
         if (existing) { 
             existing.quantity++; 
@@ -104,21 +105,18 @@ const app = {
             return;
         }
         list.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.img}" style="width:70px; height:80px; object-fit:cover; border-radius:5px;">
-                <div style="flex:1; padding-left:15px;">
+            <div class="cart-item" style="display:flex; align-items:center; gap:15px; padding:15px; border-bottom:1px solid #eee;">
+                <img src="${item.img}" style="width:60px; height:70px; object-fit:cover; border-radius:4px;">
+                <div style="flex:1;">
                     <h4 style="margin:0;">${item.name}</h4>
-                    <p style="margin:5px 0;">${item.price} $</p>
-                    <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-                        <button onclick="app.changeQty(${item.id}, -1)" class="qty-btn">-</button>
+                    <p style="margin:5px 0; color: #d4af37;">${item.price} $</p>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button onclick="app.changeQty(${item.id}, -1)" style="width:25px; cursor:pointer;">-</button>
                         <b>${item.quantity}</b>
-                        <button onclick="app.changeQty(${item.id}, 1)" class="qty-btn">+</button>
+                        <button onclick="app.changeQty(${item.id}, 1)" style="width:25px; cursor:pointer;">+</button>
                     </div>
                 </div>
-                <div style="text-align:right;">
-                   <p style="font-weight:bold; color:#d4af37;">${item.price * item.quantity} $</p>
-                   <button onclick="app.removeFromCart(${item.id})" style="background:none; border:none; color:#e74c3c; cursor:pointer;"><i class="fas fa-trash"></i></button>
-                </div>
+                <button onclick="app.removeFromCart(${item.id})" style="color:red; background:none; border:none; cursor:pointer;">✕</button>
             </div>
         `).join('');
         this.calculateTotal();
@@ -140,8 +138,10 @@ const app = {
 
     calculateTotal: function() {
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
-        if(document.getElementById('sub')) document.getElementById('sub').innerText = total + " $";
-        if(document.getElementById('total')) document.getElementById('total').innerText = total + " $";
+        const subEl = document.getElementById('sub');
+        const totalEl = document.getElementById('total');
+        if(subEl) subEl.innerText = total + " $";
+        if(totalEl) totalEl.innerText = total + " $";
     },
 
     updateCartCount: function() {
@@ -170,29 +170,26 @@ const app = {
         cart.forEach(i => msg += `🔹 ${i.name} (x${i.quantity}) - ${i.price * i.quantity} $\n`);
         msg += `\n💰 *TOTAL : ${total} $* \n💳 *PAIEMENT :* ${mode}`;
 
-        // Ouvre WhatsApp
         window.open(`https://wa.me/243XXXXXXXXX?text=${encodeURIComponent(msg)}`);
-
-        // Affiche la facture visuelle
         this.showVisualReceipt(nom, prenom, total, orderNum, mode);
     },
 
     showVisualReceipt: function(nom, prenom, total, orderNum, mode) {
         const receiptHTML = `
-            <div id="invoice-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; display:flex; justify-content:center; align-items:center; padding:20px;">
-                <div id="invoice-card" style="background:white; width:100%; max-width:450px; padding:30px; border-radius:8px; font-family:serif;">
-                    <h2 style="text-align:center; color:#d4af37; letter-spacing:2px;">LMK PARFUMERIE</h2>
+            <div id="invoice-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; display:flex; justify-content:center; align-items:center; padding:10px;">
+                <div id="invoice-card" style="background:white; width:100%; max-width:400px; padding:20px; border-radius:8px; font-family:serif;">
+                    <h2 style="text-align:center; color:#d4af37; margin:0;">LMK PARFUMERIE</h2>
+                    <p style="text-align:center; font-size:10px; margin-bottom:10px;">L'élégance à votre portée</p>
                     <hr>
-                    <p><b>Facture N° :</b> #LMK-${orderNum}</p>
-                    <p><b>Client :</b> ${nom.toUpperCase()} ${prenom}</p>
-                    <table style="width:100%; margin:20px 0; border-collapse:collapse;">
+                    <p style="font-size:13px;"><b>Facture :</b> #LMK-${orderNum}</p>
+                    <p style="font-size:13px;"><b>Client :</b> ${nom.toUpperCase()} ${prenom}</p>
+                    <table style="width:100%; font-size:13px; margin:15px 0;">
                         ${cart.map(i => `<tr><td>${i.name} x${i.quantity}</td><td style="text-align:right;">${i.price * i.quantity}$</td></tr>`).join('')}
                     </table>
-                    <h3 style="text-align:right; border-top:1px solid #ddd; padding-top:10px;">Total : ${total} $</h3>
-                    <p style="font-size:12px; color:#777; text-align:center; margin-top:20px;">Merci pour votre achat !</p>
-                    <div style="display:flex; gap:10px; margin-top:20px;">
-                        <button onclick="window.print()" style="flex:1; padding:10px; background:#d4af37; color:white; border:none; cursor:pointer;">IMPRIMER</button>
-                        <button onclick="document.getElementById('invoice-overlay').remove()" style="flex:1; padding:10px; background:#333; color:white; border:none; cursor:pointer;">FERMER</button>
+                    <h3 style="text-align:right; border-top:1px solid #ddd; padding-top:5px;">Total : ${total} $</h3>
+                    <div style="display:flex; gap:10px; margin-top:15px;">
+                        <button onclick="window.print()" style="flex:1; padding:10px; background:#d4af37; color:white; border:none; border-radius:4px; cursor:pointer;">PDF</button>
+                        <button onclick="document.getElementById('invoice-overlay').remove()" style="flex:1; padding:10px; background:#333; color:white; border:none; border-radius:4px; cursor:pointer;">FERMER</button>
                     </div>
                 </div>
             </div>
