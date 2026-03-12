@@ -1,5 +1,6 @@
-// --- FLORAL ---
+// --- BASE DE DONNÉES PRODUITS ---
 const products = [
+    // --- FLORAL ---
     { id: 1, name: "YSL Libre", price: 145, cat: "Floral", notes: "Lavande & Fleur d'Oranger", img: "images/libre.jpg" },
     { id: 2, name: "Bombshell", price: 95, cat: "Floral", notes: "Fruit de la passion & Pivoine", img: "images/bombshell.jpg" },
     { id: 3, name: "Miss Dior", price: 130, cat: "Floral", notes: "Pivoine & Rose de Grasse", img: "images/missdior.jpg" },
@@ -22,7 +23,7 @@ const products = [
     { id: 16, name: "Asad Lattafa", price: 55, cat: "Oriental", notes: "Poivre noir, Café & Tabac", img: "images/asad.jpg" },
     { id: 17, name: "Baccarat Rouge", price: 280, cat: "Oriental", notes: "Safran & Ambre Gris", img: "images/baccarat.jpg" },
     { id: 18, name: "Good Girl", price: 135, cat: "Oriental", notes: "Fève Tonka & Cacao", img: "images/goodgirl.jpg" },
-    { id: 19, name: "Black Opium", price: 125, cat: "Oriental", notes: "Café noir & Vanille", img: "Boss.JFIF" },
+    { id: 19, name: "Black Opium", price: 125, cat: "Oriental", notes: "Café noir & Vanille", img: "images/opium.jpg" },
     { id: 20, name: "Shaghaf Oud", price: 75, cat: "Oriental", notes: "Safran, Rose & Oud", img: "images/shaghaf.jpg" },
     { id: 21, name: "L'Interdit", price: 110, cat: "Oriental", notes: "Fleurs blanches & Patchouli", img: "images/interdit.jpg" },
 
@@ -36,6 +37,7 @@ const products = [
     { id: 28, name: "One Million Lucky", price: 105, cat: "Frais", notes: "Noisette & Prune", img: "images/onemillion.jpg" }
 ];
 
+// --- GESTION DU PANIER ---
 let cart = JSON.parse(localStorage.getItem('laura_cart')) || [];
 
 const app = {
@@ -50,7 +52,9 @@ const app = {
         if (!grid) return;
         grid.innerHTML = data.map(p => `
             <div class="product-card">
-                <div class="img-container"><img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/400x500?text=LMK'"></div>
+                <div class="img-container">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/400x500?text=LMK'">
+                </div>
                 <h3>${p.name}</h3>
                 <p class="notes">${p.notes}</p>
                 <p class="price"><b>${p.price} $</b></p>
@@ -63,7 +67,11 @@ const app = {
         const input = document.getElementById('searchInput');
         if(!input) return;
         const term = input.value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.notes.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term));
+        const filtered = products.filter(p => 
+            p.name.toLowerCase().includes(term) || 
+            p.notes.toLowerCase().includes(term) || 
+            p.cat.toLowerCase().includes(term)
+        );
         this.renderProducts(filtered);
     },
 
@@ -77,8 +85,13 @@ const app = {
     addToCart: function(id) {
         const product = products.find(p => p.id === id);
         const existing = cart.find(item => item.id === id);
-        if (existing) { existing.quantity++; } else { cart.push({...product, quantity: 1}); }
-        this.save(); this.updateCartCount();
+        if (existing) { 
+            existing.quantity++; 
+        } else { 
+            cart.push({...product, quantity: 1}); 
+        }
+        this.save(); 
+        this.updateCartCount();
         alert(`${product.name} ajouté ! ✨`);
     },
 
@@ -87,18 +100,19 @@ const app = {
         if (!list) return;
         if (cart.length === 0) {
             list.innerHTML = "<p style='text-align:center; padding:40px;'>Votre panier est vide.</p>";
-            this.calculateTotal(); return;
+            this.calculateTotal(); 
+            return;
         }
         list.innerHTML = cart.map(item => `
-            <div class="cart-item" style="display:flex; align-items:center; border-bottom:1px solid #eee; padding:15px 0;">
+            <div class="cart-item">
                 <img src="${item.img}" style="width:70px; height:80px; object-fit:cover; border-radius:5px;">
                 <div style="flex:1; padding-left:15px;">
                     <h4 style="margin:0;">${item.name}</h4>
                     <p style="margin:5px 0;">${item.price} $</p>
                     <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-                        <button onclick="app.changeQty(${item.id}, -1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ddd; cursor:pointer;">-</button>
+                        <button onclick="app.changeQty(${item.id}, -1)" class="qty-btn">-</button>
                         <b>${item.quantity}</b>
-                        <button onclick="app.changeQty(${item.id}, 1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ddd; cursor:pointer;">+</button>
+                        <button onclick="app.changeQty(${item.id}, 1)" class="qty-btn">+</button>
                     </div>
                 </div>
                 <div style="text-align:right;">
@@ -137,97 +151,54 @@ const app = {
 
     save: function() { localStorage.setItem('laura_cart', JSON.stringify(cart)); },
 
-    // --- LOGIQUE WHATSAPP + GÉNÉRATION REÇU PDF ---
+    // --- WHATSAPP & REÇU ---
     generateWhatsAppReceipt: function() {
         const nom = document.getElementById('lastName')?.value;
-        const postnom = document.getElementById('postName')?.value || "";
         const prenom = document.getElementById('firstName')?.value;
         const tel = document.getElementById('userPhone')?.value;
-        const email = document.getElementById('userEmail')?.value;
         const radioPaiement = document.querySelector('input[name="payment"]:checked');
         
-        if (!nom || !prenom || !tel) return alert("Veuillez remplir les informations obligatoires !");
+        if (!nom || !prenom || !tel) return alert("Veuillez remplir vos coordonnées !");
         if (cart.length === 0) return alert("Votre panier est vide !");
 
         const mode = radioPaiement ? radioPaiement.value : "Non précisé";
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
         const orderNum = Math.floor(1000 + Math.random() * 9000);
 
-        // 1. Message pour WhatsApp
         let msg = `✨ *COMMANDE LMK-${orderNum}* ✨\n\n`;
         msg += `👤 *CLIENT :* ${nom.toUpperCase()} ${prenom}\n📞 *TÉL :* ${tel}\n\n📦 *PRODUITS :*\n`;
         cart.forEach(i => msg += `🔹 ${i.name} (x${i.quantity}) - ${i.price * i.quantity} $\n`);
         msg += `\n💰 *TOTAL : ${total} $* \n💳 *PAIEMENT :* ${mode}`;
 
-        // Ouvrir WhatsApp (Remplace par ton numéro)
+        // Ouvre WhatsApp
         window.open(`https://wa.me/243XXXXXXXXX?text=${encodeURIComponent(msg)}`);
 
-        // 2. Afficher le Reçu Visuel (Facture)
-        this.showVisualReceipt(nom, postnom, prenom, total, orderNum, mode);
+        // Affiche la facture visuelle
+        this.showVisualReceipt(nom, prenom, total, orderNum, mode);
     },
 
-    showVisualReceipt: function(nom, postnom, prenom, total, orderNum, mode) {
+    showVisualReceipt: function(nom, prenom, total, orderNum, mode) {
         const receiptHTML = `
-            <div id="invoice-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; display:flex; justify-content:center; align-items:flex-start; overflow-y:auto; padding:20px;">
-                <div id="invoice-card" style="background:white; width:100%; max-width:500px; padding:40px; border-radius:5px; position:relative; font-family:'Times New Roman', serif;">
-                    <div style="text-align:center; border-bottom:2px solid #d4af37; padding-bottom:20px; margin-bottom:20px;">
-                        <h1 style="margin:0; letter-spacing:3px;">LMK PARFUMERIE</h1>
-                        <p style="text-transform:uppercase; font-size:12px; margin-top:5px;">L'élégance à votre portée</p>
-                    </div>
-                    
-                    <div style="display:flex; justify-content:space-between; margin-bottom:30px; font-size:14px;">
-                        <div>
-                            <p><b>FACTURE N° :</b> #LMK-${orderNum}</p>
-                            <p><b>DATE :</b> ${new Date().toLocaleDateString()}</p>
-                        </div>
-                        <div style="text-align:right;">
-                            <p><b>CLIENT :</b><br>${nom.toUpperCase()} ${postnom} ${prenom}</p>
-                        </div>
-                    </div>
-
-                    <table style="width:100%; border-collapse:collapse; margin-bottom:30px;">
-                        <thead>
-                            <tr style="border-bottom:1px solid #eee; text-align:left;">
-                                <th style="padding:10px 0;">Article</th>
-                                <th style="text-align:center;">Qté</th>
-                                <th style="text-align:right;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${cart.map(i => `
-                                <tr style="border-bottom:1px solid #f9f9f9;">
-                                    <td style="padding:10px 0;">${i.name}</td>
-                                    <td style="text-align:center;">${i.quantity}</td>
-                                    <td style="text-align:right;">${i.price * i.quantity} $</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
+            <div id="invoice-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; display:flex; justify-content:center; align-items:center; padding:20px;">
+                <div id="invoice-card" style="background:white; width:100%; max-width:450px; padding:30px; border-radius:8px; font-family:serif;">
+                    <h2 style="text-align:center; color:#d4af37; letter-spacing:2px;">LMK PARFUMERIE</h2>
+                    <hr>
+                    <p><b>Facture N° :</b> #LMK-${orderNum}</p>
+                    <p><b>Client :</b> ${nom.toUpperCase()} ${prenom}</p>
+                    <table style="width:100%; margin:20px 0; border-collapse:collapse;">
+                        ${cart.map(i => `<tr><td>${i.name} x${i.quantity}</td><td style="text-align:right;">${i.price * i.quantity}$</td></tr>`).join('')}
                     </table>
-
-                    <div style="text-align:right; border-top:2px solid #000; padding-top:10px;">
-                        <p style="font-size:18px;"><b>TOTAL À PAYER : ${total} $</b></p>
-                        <p style="font-size:12px; color:#666;">Mode : ${mode} | Livraison : Offerte</p>
+                    <h3 style="text-align:right; border-top:1px solid #ddd; padding-top:10px;">Total : ${total} $</h3>
+                    <p style="font-size:12px; color:#777; text-align:center; margin-top:20px;">Merci pour votre achat !</p>
+                    <div style="display:flex; gap:10px; margin-top:20px;">
+                        <button onclick="window.print()" style="flex:1; padding:10px; background:#d4af37; color:white; border:none; cursor:pointer;">IMPRIMER</button>
+                        <button onclick="document.getElementById('invoice-overlay').remove()" style="flex:1; padding:10px; background:#333; color:white; border:none; cursor:pointer;">FERMER</button>
                     </div>
-
-                    <div style="margin-top:40px; display:flex; gap:10px;" class="no-print">
-                        <button onclick="window.print()" style="flex:1; background:#d4af37; color:white; border:none; padding:12px; cursor:pointer; font-weight:bold; border-radius:3px;">IMPRIMER / ENREGISTRER PDF</button>
-                        <button onclick="location.href='boutique.html'" style="flex:1; background:#000; color:white; border:none; padding:12px; cursor:pointer; border-radius:3px;">RETOUR</button>
-                    </div>
-                    <p style="text-align:center; font-size:10px; color:#aaa; margin-top:30px;">Merci de votre confiance. Les articles ne sont ni repris ni échangés.</p>
                 </div>
             </div>
-            <style>
-                @media print {
-                    body * { visibility: hidden; }
-                    #invoice-card, #invoice-card * { visibility: visible; }
-                    #invoice-card { position: absolute; left: 0; top: 0; width: 100% !important; border:none !important; }
-                    .no-print { display: none !important; }
-                }
-            </style>
         `;
         document.body.insertAdjacentHTML('beforeend', receiptHTML);
     }
 };
 
 document.addEventListener('DOMContentLoaded', () => app.init());
-
