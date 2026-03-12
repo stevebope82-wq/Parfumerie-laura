@@ -85,3 +85,55 @@ nav ul a.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
 .cart-item img { width: 90px; height: 110px; object-fit: cover; }
 .summary-card { background: white; padding: 40px; border: 1px solid #eee; position: sticky; top: 140px; }
 .btn-order { width: 100%; padding: 20px; background: var(--dark); color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+/* --- ADAPTATION MOBILE (Responsive) --- */
+
+/* 1. La grille de produits passe de 3 ou 4 colonnes à 2 (ou 1) sur téléphone */
+.product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 15px !important;
+    padding: 10px !important;
+}
+
+/* 2. On empêche les conteneurs de déborder */
+body, html {
+    overflow-x: hidden; /* Empêche le défilement horizontal gênant */
+    width: 100%;
+}
+
+.cart-page-container {
+    display: flex;
+    flex-direction: column; /* Empile le panier et le résumé sur mobile */
+    width: 100% !important;
+    padding: 10px !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+/* 3. Ajustement du Header (Logo et Nav) */
+header {
+    flex-direction: column; /* Le logo au dessus, la nav en dessous sur mobile */
+    text-align: center;
+    padding: 10px !important;
+}
+
+.nav-links {
+    padding: 0;
+    gap: 10px;
+    font-size: 0.8rem;
+}
+
+/* 4. Images responsives */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 5. Ajustement de la Summary Card (Panier & Paiement) */
+.summary-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 20px 0 !important;
+    float: none !important;
+    box-sizing: border-box;
+}
