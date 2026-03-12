@@ -1,4 +1,5 @@
 // --- FLORAL ---
+const products = [
     { id: 1, name: "YSL Libre", price: 145, cat: "Floral", notes: "Lavande & Fleur d'Oranger", img: "images/libre.jpg" },
     { id: 2, name: "Bombshell", price: 95, cat: "Floral", notes: "Fruit de la passion & Pivoine", img: "images/bombshell.jpg" },
     { id: 3, name: "Miss Dior", price: 130, cat: "Floral", notes: "Pivoine & Rose de Grasse", img: "images/missdior.jpg" },
@@ -229,3 +230,4 @@ const app = {
 };
 
 document.addEventListener('DOMContentLoaded', () => app.init());
+
